@@ -6,7 +6,8 @@ import CrossIcon from "./images/icon-cross.svg"
 
 function App() {
   const [message, setMessage] = useState(null)
-  const [todo, setTodo] = useState({message: null, completed: false })
+  const [todo, setTodo] = useState([])
+
 
 
   function handleChange(e){
@@ -15,17 +16,19 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault()
-    setTodo({message: message, completed: false})
+    setTodo(prev => [{message: message, completed: false},...prev])
   }
 
-  console.log(todo)
+  const todoItems = todo.map((item, idx) => {
+    return (
+      <div className="todo" key={idx}>
+        <div className="circle-todo"></div>
+        <p className="todo-description">{item.message}</p>
+        <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
+      </div>
+    )
+  })
 
-  const itemsList = []
-
-  // const todo = {
-  //   message: "",
-  //   completed: false,
-  // }
 
   return (
     <div className="app">
@@ -47,7 +50,8 @@ function App() {
           <div className="circle"></div>
         </form>
         <div className="todo-items">
-          <div className="todo">
+          {todoItems}
+          {/* <div className="todo">
             <div className="circle-todo"></div>
             <p className="todo-description">My name is my name</p>
             <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
@@ -81,9 +85,9 @@ function App() {
             <div className="circle-todo"></div>
             <p className="todo-description">My name is my name</p>
             <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
+          </div> */}
           <div className="todo">
-            <p className="items-left">5 items left</p>
+            <p className="items-left">{todo.length} items left</p>
             <p className="items-clear">Clear Completed</p>
           </div>
 
