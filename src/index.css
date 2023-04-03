@@ -94,6 +94,15 @@ header {
   border: 2px solid pink;
 }
 
+.fill {
+  background-color: pink;
+}
+
+.todo .line-through {
+  text-decoration: line-through;
+  color: #D1D2DA;
+}
+
 /* .circle-todo:hover::before {
   content: '';
   position: absolute;

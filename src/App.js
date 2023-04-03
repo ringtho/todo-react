@@ -18,7 +18,7 @@ function App() {
   function handleSubmit(e){
     e.preventDefault()
     setTodo(prev => [
-      {id: nanoid(),message: message, completed: true},...prev])
+      {id: nanoid(),message: message, completed: false},...prev])
   }
 
   function handleDelete(id){
@@ -26,15 +26,23 @@ function App() {
     setTodo(updatedArr)
   }
 
-  const completedTodos = todo.filter(item => item.completed )
+  function toggleComplete(id){
+    const updatedArr = todo.map(item => 
+      item.id === id ? {...item, completed: !item.completed} : item
+    )
+    setTodo(updatedArr) 
+  }
 
-  console.log(completedTodos)
+  // const completedTodos = todo.filter(item => item.completed )
 
   const todoItems = todo.map((item, idx) => {
     return (
       <div className="todo" key={idx}>
-        <div className="circle-todo"></div>
-        <p className="todo-description">{item.message}</p>
+        <div 
+          className={`circle-todo ${item.completed ? "fill" : ""}`}
+          onClick={() => toggleComplete(item.id)}>
+        </div>
+        <p className={`todo-description ${item.completed ? "line-through" : ""}`}>{item.message}</p>
         <img 
           src={CrossIcon} 
           alt="cross-icon" 
@@ -66,46 +74,10 @@ function App() {
         </form>
         <div className="todo-items">
           {todoItems}
-          {/* <div className="todo">
-            <div className="circle-todo"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
-          <div className="todo">
-            <div className="circle-todo"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
-          <div className="todo">
-            <div className="circle-todo"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
-          <div className="todo">
-            <div className="circle-todo fill"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
-          <div className="todo">
-            <div className="circle-todo"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
-          <div className="todo">
-            <div className="circle-todo"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div>
-          <div className="todo">
-            <div className="circle-todo"></div>
-            <p className="todo-description">My name is my name</p>
-            <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
-          </div> */}
           <div className="todo">
             <p className="items-left">{todo.length} items left</p>
             <p className="items-clear">Clear Completed</p>
           </div>
-
           <div className="todo-filter">
             <p className="filter selected">All</p>
             <p className="filter">Active</p>
