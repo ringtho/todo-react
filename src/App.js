@@ -83,8 +83,6 @@ function App() {
         position={null}
         scale={1}
         onDrag={eventHandler}
-        // grid={[25, 25]}
-        // handle=".handle"
       >
       <li 
         className={`todo ${darkMode ? "todo-dark bd-dark" : ""}`} 
