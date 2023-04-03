@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Banner from "./images/bg-mobile-light.jpg"
 import LightModeMoon from "./images/icon-moon.svg"
-// import CheckIcon from "./images/icon-check.svg"
+import CheckIcon from "./images/icon-check.svg"
 import CrossIcon from "./images/icon-cross.svg"
 import { nanoid } from 'nanoid'
 
@@ -28,7 +28,9 @@ function App() {
 
   function toggleComplete(id){
     const updatedArr = todo.map(item => 
-      item.id === id ? {...item, completed: !item.completed} : item
+      item.id === id 
+      ? {...item, completed: !item.completed} 
+      : item
     )
     setTodo(updatedArr) 
   }
@@ -42,6 +44,9 @@ function App() {
           className={`circle-todo ${item.completed ? "fill" : ""}`}
           onClick={() => toggleComplete(item.id)}>
         </div>
+        {item.completed && 
+          <img src={CheckIcon} alt="check-icon" className="check-icon" />
+        }
         <p className={`todo-description ${item.completed ? "line-through" : ""}`}>{item.message}</p>
         <img 
           src={CrossIcon} 
@@ -59,7 +64,10 @@ function App() {
         <img src={Banner} alt="header-img" />
         <div className="headings">
           <h1>TODO</h1>
-          <img className="moon-icon" src={LightModeMoon} alt="light-mode-moon" />
+          <img 
+            className="moon-icon" 
+            src={LightModeMoon} 
+            alt="light-mode-moon" />
         </div>
       </header>
       <main>
