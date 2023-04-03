@@ -1,11 +1,12 @@
 import { useState } from "react"
 import Banner from "./images/bg-mobile-light.jpg"
 import LightModeMoon from "./images/icon-moon.svg"
-import CheckIcon from "./images/icon-check.svg"
+// import CheckIcon from "./images/icon-check.svg"
 import CrossIcon from "./images/icon-cross.svg"
+import { nanoid } from 'nanoid'
 
 function App() {
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState("")
   const [todo, setTodo] = useState([])
 
 
@@ -16,8 +17,11 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault()
-    setTodo(prev => [{message: message, completed: false},...prev])
+    setTodo(prev => [
+      {id: nanoid(),message: message, completed: false},...prev])
   }
+
+  console.log(todo)
 
   const todoItems = todo.map((item, idx) => {
     return (
