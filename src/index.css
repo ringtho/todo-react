@@ -11,8 +11,15 @@ body {
   font-size: 18px;
   /* max-width: 375px; */
   font-weight: 400;
-  background-color: #F2F2F2;
   user-select: none;
+}
+
+.light-background {
+  background-color: #F2F2F2;
+}
+
+.dark-background {
+  background-color: #171823;
 }
 
 h1, h2, h3, h4 {
@@ -68,7 +75,10 @@ header {
   border: none;
   position: relative;
   padding-left: 52px;
+  padding-right: 16px;
   font-family: 'Josefin Sans', sans-serif;
+  caret-color: #3A7CFD;
+  font-size: 16px;
 }
 
 .circle {
@@ -86,10 +96,11 @@ header {
 }
 
 .circle-todo {
+  display: flex;
   margin-right: 12px;
   position: relative;
-  /* z-index: -1; */
-  align-self: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .circle-todo:hover {
@@ -104,18 +115,6 @@ header {
   text-decoration: line-through;
   color: #D1D2DA;
 }
-
-/* .circle-todo:hover::before {
-  content: '';
-  position: absolute;
-  border-radius: 100%;
-  background-image: linear-gradient(45deg, hsl(192, 100%, 67%),hsl(280, 87%, 65%));
-  top: -2px;
-  left: -2px;
-  bottom: -2px;
-  right: -2px;
-  z-index:-1;
-} */
 
 .todo-items{
   padding: 16px 24px;
@@ -132,14 +131,25 @@ header {
   align-items: center;
   background-color: #FFFFFF;
   padding: 14px 20px;
-  
+} 
+
+.todo{
   border-bottom: 1px solid #E3E4F1;
 }
 
+div .todo-dark {
+  background-color: #25273D;
+}
+
+div .todo-dark .todo-description {
+  color: #C8CBE7;
+} 
+
 .todo-description {
-  font-size: 12px;
+  font-size: 16px;
   margin-right: auto;
   color: #494C6B;
+  line-height: 1.5;
 }
 
 .cross-icon:hover {
@@ -159,7 +169,6 @@ header {
 
 .check-icon {
   position: absolute;
-  align-self: center;
   z-index: 20;
 }
 

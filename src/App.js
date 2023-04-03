@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Banner from "./images/bg-mobile-light.jpg"
-import LightModeMoon from "./images/icon-moon.svg"
+import BannerDark from "./images/bg-mobile-dark.jpg"
+import Moon from "./images/icon-moon.svg"
+import Sun from "./images/icon-sun.svg"
 import CheckIcon from "./images/icon-check.svg"
 import CrossIcon from "./images/icon-cross.svg"
 import { nanoid } from 'nanoid'
@@ -9,6 +11,13 @@ function App() {
   const [message, setMessage] = useState("")
   const [todo, setTodo] = useState([])
   const [filterAction, setFilterAction] = useState("all")
+  const [darkMode, setDarkMode] = useState(false)
+  const activeTodos = todo.filter(item => !item.completed)
+  const completedTodos = todo.filter(item => item.completed )
+
+  function toggleDarkMode(){
+    setDarkMode(!darkMode)
+  }
 
   function handleChange(e){
     setMessage(e.target.value)
@@ -39,29 +48,35 @@ function App() {
     setTodo(newArr)
   }
 
+  useEffect(()=>{
+    darkMode ?
+    document.body.className = "dark-background" :
+    document.body.className = "light-background"
+
+  },[darkMode])
+
   function filter(action){
-    const activeTodos = todo.filter(item => !item.completed)
-    const completedTodos = todo.filter(item => item.completed )
     if ( action === "active"){
       return activeTodos
     } else if (action === "completed"){
       return completedTodos
-    } else {
+    } else if (action === "all") {
       return todo
     }
   }
 
   const todoItems = filter(filterAction).map((item, idx) => {
     return (
-      <div className="todo" key={idx}>
+      <div className={`todo ${darkMode ? "todo-dark" : ""}`} key={idx}>
         <div 
           className={`circle-todo ${item.completed ? "fill" : ""}`}
           onClick={() => toggleComplete(item.id)}>
-        </div>
-        {
+            {
           item.completed && 
           <img src={CheckIcon} alt="check-icon" className="check-icon" />
-        }
+          }
+        </div>
+        
         <p className={`todo-description ${item.completed ? "line-through" : ""}`}>
           {item.message}
         </p>
@@ -74,17 +89,17 @@ function App() {
     )
   })
 
-
   return (
     <div className="app">
       <header>
-        <img src={Banner} alt="header-img" />
+        <img src={darkMode ? BannerDark : Banner} alt="header-img" />
         <div className="headings">
           <h1>TODO</h1>
           <img 
             className="moon-icon" 
-            src={LightModeMoon} 
-            alt="light-mode-moon" />
+            src={darkMode ? Sun : Moon} 
+            alt="light-mode-moon"
+            onClick={toggleDarkMode} />
         </div>
       </header>
       <main>
@@ -99,11 +114,11 @@ function App() {
         </form>
         <div className="todo-items">
           {todoItems}
-          <div className="todo">
-            <p className="items-left">{todo.length} items left</p>
+          <div className={`todo ${darkMode ? "todo-dark" : ""}`}>
+            <p className="items-left">{activeTodos.length} items left</p>
             <p className="items-clear" onClick={clearCompleted}>Clear Completed</p>
           </div>
-          <div className="todo-filter">
+          <div className={`todo-filter ${darkMode ? "todo-dark" : ""}`}>
             <p 
               className={`filter ${filterAction === "all" ? "selected" : "" }`} 
               onClick={()=>setFilterAction("all")}>All</p>
