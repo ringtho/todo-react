@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+// import Banner from "./images/banner2.jpg"
 import Banner from "./images/bg-mobile-light.jpg"
 import BannerDark from "./images/bg-mobile-dark.jpg"
 import Moon from "./images/icon-moon.svg"
@@ -12,6 +13,7 @@ function App() {
   const [todo, setTodo] = useState([])
   const [filterAction, setFilterAction] = useState("all")
   const [darkMode, setDarkMode] = useState(false)
+  const [showCross, setShowCross] = useState(false)
   const activeTodos = todo.filter(item => !item.completed)
   const completedTodos = todo.filter(item => item.completed )
 
@@ -27,6 +29,7 @@ function App() {
     e.preventDefault()
     setTodo(prev => [
       {id: nanoid(),message: message, completed: false},...prev])
+    setMessage("")
   }
 
   function handleDelete(id){
@@ -64,12 +67,17 @@ function App() {
       return todo
     }
   }
-
   const todoItems = filter(filterAction).map((item, idx) => {
     return (
-      <div className={`todo ${darkMode ? "todo-dark" : ""}`} key={idx}>
+      <li 
+        className={`todo ${darkMode ? "todo-dark bd-dark" : ""}`} 
+        key={idx}
+        onMouseEnter={() => setShowCross(true)}
+        onMouseLeave={() => setShowCross(false)}
+        >
         <div 
-          className={`circle-todo ${item.completed ? "fill" : ""}`}
+          className={`circle-todo ${item.completed ? "fill" : ""} 
+          ${darkMode ? "bd-full-dark" : ""}`}
           onClick={() => toggleComplete(item.id)}>
             {
           item.completed && 
@@ -77,15 +85,18 @@ function App() {
           }
         </div>
         
-        <p className={`todo-description ${item.completed ? "line-through" : ""}`}>
+        <p className={
+          `todo-description ${item.completed ? "line-through" : ""}
+          ${darkMode ? "line-through-dark" : ""}`}>
           {item.message}
         </p>
+        { showCross &&
         <img 
           src={CrossIcon} 
           alt="cross-icon" 
           className="cross-icon" 
-          onClick={() => handleDelete(item.id)} />
-      </div>
+          onClick={() => handleDelete(item.id)} />}
+      </li>
     )
   })
 
@@ -107,32 +118,41 @@ function App() {
           <input 
             type="text" 
             placeholder="Create a new todo" 
-            className="input-field"
+            className={`input-field ${darkMode ? "input-field-dark" : ""}`}
             value={message}
             onChange={handleChange} />
-          <div className="circle"></div>
+          <div className={`circle ${darkMode ? "bd-full-dark" : ""}`}></div>
         </form>
         <div className="todo-items">
-          {todoItems}
-          <div className={`todo ${darkMode ? "todo-dark" : ""}`}>
-            <p className="items-left">{activeTodos.length} items left</p>
-            <p className="items-clear" onClick={clearCompleted}>Clear Completed</p>
-          </div>
-          <div className={`todo-filter ${darkMode ? "todo-dark" : ""}`}>
+          <ul className={`${darkMode ? "ul-dark" : ""}`}>
+            {todoItems}
+            <li className={`todo ${darkMode ? "todo-dark" : ""}`}>
+              <p className={`items-left ${darkMode ? "items-dark" : ""}`}
+              >{activeTodos.length} items left</p>
+              <p className={`items-clear ${darkMode ? "items-dark" : ""}`}
+               onClick={clearCompleted}>Clear Completed</p>
+            </li>
+          </ul>
+          
+          <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`}>
             <p 
-              className={`filter ${filterAction === "all" ? "selected" : "" }`} 
+              className={`${darkMode ? "items-dark" : "" } filter 
+              ${filterAction === "all" ? "selected" : "" }
+              `} 
               onClick={()=>setFilterAction("all")}>All</p>
             <p 
-              className={`filter ${filterAction === "active" ? "selected" : "" }`} 
+              className={`${darkMode ? "items-dark" : "" } filter 
+              ${filterAction === "active" ? "selected" : "" }
+              `} 
               onClick={()=>setFilterAction("active")}>Active</p>
             <p 
-              className={`filter ${filterAction === "completed" ? "selected" : "" }`} 
+              className={`${darkMode ? "items-dark" : "" } filter 
+              ${filterAction === "completed" ? "selected" : "" }
+              `} 
               onClick={()=>setFilterAction("completed")} >Completed</p>
           </div>
-          <p className="reorder-text">Drag and drop to reorder list</p>
+          <p className={`reorder-text ${darkMode ? "filter-dark" : ""}`}>Drag and drop to reorder list</p>
         </div>
-       
-        
       </main>
     </div>
   );

@@ -9,7 +9,6 @@ body {
   padding: 0;
   font-family: 'Josefin Sans', sans-serif;
   font-size: 18px;
-  /* max-width: 375px; */
   font-weight: 400;
   user-select: none;
 }
@@ -29,6 +28,8 @@ h1, h2, h3, h4 {
 header > img,
 header {
   height: 200px;
+  width: 100%;
+  object-fit: cover;
 }
 
 header {
@@ -60,6 +61,10 @@ header {
   width: 20px;
 }
 
+.moon-icon:hover {
+  cursor: pointer;
+}
+
 .add-todo {
   position: absolute;
   top: 108px;
@@ -71,7 +76,7 @@ header {
 .input-field {
   width: 100%;
   height: 48px;
-  border-radius: 4px;
+  border-radius: 5px;
   border: none;
   position: relative;
   padding-left: 52px;
@@ -79,6 +84,15 @@ header {
   font-family: 'Josefin Sans', sans-serif;
   caret-color: #3A7CFD;
   font-size: 16px;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+.input-field-dark {
+  background-color: #25273D;
+  color: #C8CBE7;
 }
 
 .circle {
@@ -104,41 +118,63 @@ header {
 }
 
 .circle-todo:hover {
-  border: 2px solid pink;
+  border: 2px solid hsl(280, 87%, 65%);
 }
 
-.fill {
+/* .fill {
   background-color: pink;
-}
+} */
 
 .todo .line-through {
   text-decoration: line-through;
   color: #D1D2DA;
 }
 
+.todo p.line-through-dark {
+  color: #4D5067;
+}
+
 .todo-items{
   padding: 16px 24px;
   position: absolute;
   left: 0;
-  top: 160px;
+  top: 140px;
   width: 100%;
 }
 
 .todo,
 .todo-filter {
-  height: 48px;
+  
   display: flex;
   align-items: center;
   background-color: #FFFFFF;
   padding: 14px 20px;
 } 
 
+.todo-filter {
+  height: 48px;
+}
+
+.todo-items .filter-dark {
+  color: #5B5E7E;
+}
+
 .todo{
   border-bottom: 1px solid #E3E4F1;
+  height: 48px;
+}
+
+.bd-dark {
+  border-bottom: 1px solid #393A4B;
+}
+
+.bd-full-dark {
+  border: 1px solid #393A4B;
 }
 
 div .todo-dark {
   background-color: #25273D;
+  box-shadow: none;
 }
 
 div .todo-dark .todo-description {
@@ -149,7 +185,7 @@ div .todo-dark .todo-description {
   font-size: 16px;
   margin-right: auto;
   color: #494C6B;
-  line-height: 1.5;
+  line-height: 1;
 }
 
 .cross-icon:hover {
@@ -176,6 +212,10 @@ div .todo-dark .todo-description {
   margin-right: auto;
 }
 
+.items-dark {
+  color: #5B5E7E;
+}
+
 .items-clear:hover {
   cursor: pointer;
   color: #494C6B;
@@ -185,6 +225,7 @@ div .todo-dark .todo-description {
   justify-content: center;
   gap: 18px;
   margin-top: 16px;
+  box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.5);
 }
 
 .filter {
@@ -214,4 +255,24 @@ div .todo-dark .todo-description {
 
 .fill {
   background-image: linear-gradient( 45deg, hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+}
+
+ul {
+  padding: 0;
+  box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.5);
+}
+
+.ul-dark {
+  box-shadow: none;
+}
+
+ul li:nth-child(1){
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+ul li:nth-last-child(1){
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom: none;
 }
