@@ -8,8 +8,7 @@ import { nanoid } from 'nanoid'
 function App() {
   const [message, setMessage] = useState("")
   const [todo, setTodo] = useState([])
-
-
+  const [filterAction, setFilterAction] = useState("all")
 
   function handleChange(e){
     setMessage(e.target.value)
@@ -35,19 +34,37 @@ function App() {
     setTodo(updatedArr) 
   }
 
-  // const completedTodos = todo.filter(item => item.completed )
+  function clearCompleted(){
+    const newArr = todo.filter(item => !item.completed)
+    setTodo(newArr)
+  }
 
-  const todoItems = todo.map((item, idx) => {
+  function filter(action){
+    const activeTodos = todo.filter(item => !item.completed)
+    const completedTodos = todo.filter(item => item.completed )
+    if ( action === "active"){
+      return activeTodos
+    } else if (action === "completed"){
+      return completedTodos
+    } else {
+      return todo
+    }
+  }
+
+  const todoItems = filter(filterAction).map((item, idx) => {
     return (
       <div className="todo" key={idx}>
         <div 
           className={`circle-todo ${item.completed ? "fill" : ""}`}
           onClick={() => toggleComplete(item.id)}>
         </div>
-        {item.completed && 
+        {
+          item.completed && 
           <img src={CheckIcon} alt="check-icon" className="check-icon" />
         }
-        <p className={`todo-description ${item.completed ? "line-through" : ""}`}>{item.message}</p>
+        <p className={`todo-description ${item.completed ? "line-through" : ""}`}>
+          {item.message}
+        </p>
         <img 
           src={CrossIcon} 
           alt="cross-icon" 
@@ -84,15 +101,22 @@ function App() {
           {todoItems}
           <div className="todo">
             <p className="items-left">{todo.length} items left</p>
-            <p className="items-clear">Clear Completed</p>
+            <p className="items-clear" onClick={clearCompleted}>Clear Completed</p>
           </div>
           <div className="todo-filter">
-            <p className="filter selected">All</p>
-            <p className="filter">Active</p>
-            <p className="filter">Completed</p>
+            <p 
+              className={`filter ${filterAction === "all" ? "selected" : "" }`} 
+              onClick={()=>setFilterAction("all")}>All</p>
+            <p 
+              className={`filter ${filterAction === "active" ? "selected" : "" }`} 
+              onClick={()=>setFilterAction("active")}>Active</p>
+            <p 
+              className={`filter ${filterAction === "completed" ? "selected" : "" }`} 
+              onClick={()=>setFilterAction("completed")} >Completed</p>
           </div>
           <p className="reorder-text">Drag and drop to reorder list</p>
         </div>
+       
         
       </main>
     </div>

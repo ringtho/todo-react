@@ -182,6 +182,7 @@ header {
   font-size: 14px;
   color: #9495A5;
   font-weight: 700;
+  transition: color 0.5s;
 }
 
 .filter:hover {
