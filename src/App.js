@@ -7,6 +7,7 @@ import Sun from "./images/icon-sun.svg"
 import CheckIcon from "./images/icon-check.svg"
 import CrossIcon from "./images/icon-cross.svg"
 import { nanoid } from 'nanoid'
+import Draggable from 'react-draggable'
 
 function App() {
   const [message, setMessage] = useState("")
@@ -67,8 +68,24 @@ function App() {
       return todo
     }
   }
+
+  const eventHandler = (e, data) => {
+    console.log('Event Type', e.type);
+    console.log({e, data});
+  }
+
+  
   const todoItems = filter(filterAction).map((item, idx) => {
     return (
+      <Draggable
+        axis="y"
+        defaultPosition={{x: 0, y: 0}}
+        position={null}
+        scale={1}
+        onDrag={eventHandler}
+        // grid={[25, 25]}
+        // handle=".handle"
+      >
       <li 
         className={`todo ${darkMode ? "todo-dark bd-dark" : ""}`} 
         key={idx}
@@ -97,6 +114,7 @@ function App() {
           className="cross-icon" 
           onClick={() => handleDelete(item.id)} />}
       </li>
+      </Draggable>
     )
   })
 
