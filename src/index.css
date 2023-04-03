@@ -90,6 +90,10 @@ header {
   z-index: 10;
 }
 
+.circle-todo:hover {
+  border: 2px solid pink;
+}
+
 /* .circle-todo:hover::before {
   content: '';
   position: absolute;

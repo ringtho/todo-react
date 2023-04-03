@@ -18,7 +18,7 @@ function App() {
   function handleSubmit(e){
     e.preventDefault()
     setTodo(prev => [
-      {id: nanoid(),message: message, completed: false},...prev])
+      {id: nanoid(),message: message, completed: true},...prev])
   }
 
   function handleDelete(id){
@@ -26,7 +26,9 @@ function App() {
     setTodo(updatedArr)
   }
 
-  console.log(todo)
+  const completedTodos = todo.filter(item => item.completed )
+
+  console.log(completedTodos)
 
   const todoItems = todo.map((item, idx) => {
     return (
