@@ -7,7 +7,7 @@ import Sun from "./images/icon-sun.svg"
 import CheckIcon from "./images/icon-check.svg"
 import CrossIcon from "./images/icon-cross.svg"
 import { nanoid } from 'nanoid'
-import Draggable from 'react-draggable'
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 function App() {
   const [message, setMessage] = useState("")
@@ -69,49 +69,56 @@ function App() {
     }
   }
 
-  const eventHandler = (e, data) => {
-    console.log('Event Type', e.type);
-    console.log({e, data});
+  function handleEnd(result){
+    if (!result.destination) return
+    const items = Array.from(todo);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setTodo(items);
   }
-
   
   const todoItems = filter(filterAction).map((item, idx) => {
     return (
-      <Draggable
-        axis="y"
-        defaultPosition={{x: 0, y: 0}}
-        position={null}
-        scale={1}
-        onDrag={eventHandler}
+      <Draggable 
+        key={item.id}
+        draggableId={item.id.toString()}
+        index={idx}
       >
-      <li 
-        className={`todo ${darkMode ? "todo-dark bd-dark" : ""}`} 
-        key={idx}
-        onMouseEnter={() => setShowCross(true)}
-        onMouseLeave={() => setShowCross(false)}
-        >
-        <div 
-          className={`circle-todo ${item.completed ? "fill" : ""} 
-          ${darkMode ? "bd-full-dark" : ""}`}
-          onClick={() => toggleComplete(item.id)}>
-            {
-          item.completed && 
-          <img src={CheckIcon} alt="check-icon" className="check-icon" />
-          }
-        </div>
-        
-        <p className={
-          `todo-description ${item.completed ? "line-through" : ""}
-          ${darkMode ? "line-through-dark" : ""}`}>
-          {item.message}
-        </p>
-        { showCross &&
-        <img 
-          src={CrossIcon} 
-          alt="cross-icon" 
-          className="cross-icon" 
-          onClick={() => handleDelete(item.id)} />}
-      </li>
+        {(provided, snapshot) => (
+          <li 
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+          {...provided.dragHandleProps}
+          key={item.id}
+          className={`todo ${darkMode ? "todo-dark bd-dark" : ""} 
+          ${snapshot.isDragging ? "selected" : "not-selected"}`} 
+          onMouseEnter={() => setShowCross(true)}
+          onMouseLeave={() => setShowCross(false)}
+          >
+          <div 
+            className={`circle-todo ${item.completed ? "fill" : ""} 
+            ${darkMode ? "bd-full-dark" : ""}`}
+            onClick={() => toggleComplete(item.id)}>
+              {
+            item.completed && 
+            <img src={CheckIcon} alt="check-icon" className="check-icon" />
+            }
+          </div>
+          
+          <p className={
+            `todo-description ${item.completed ? "line-through" : ""}
+            ${darkMode ? "line-through-dark" : ""}`}>
+            {item.message}
+          </p>
+          { showCross &&
+          <img 
+            src={CrossIcon} 
+            alt="cross-icon" 
+            className="cross-icon" 
+            onClick={() => handleDelete(item.id)} />}
+        </li>
+        )}
+
       </Draggable>
     )
   })
@@ -140,15 +147,22 @@ function App() {
           <div className={`circle ${darkMode ? "bd-full-dark" : ""}`}></div>
         </form>
         <div className="todo-items">
-          <ul className={`${darkMode ? "ul-dark" : ""}`}>
-            {todoItems}
-            <li className={`todo ${darkMode ? "todo-dark" : ""}`}>
-              <p className={`items-left ${darkMode ? "items-dark" : ""}`}
-              >{activeTodos.length} items left</p>
-              <p className={`items-clear ${darkMode ? "items-dark" : ""}`}
-               onClick={clearCompleted}>Clear Completed</p>
-            </li>
-          </ul>
+          <DragDropContext onDragEnd={handleEnd}>
+          <Droppable droppableId="to-do">
+                  {(provided) => (
+                <ul {...provided.droppableProps} ref={provided.innerRef} className={`${darkMode ? "ul-dark" : ""}`}>
+                {todoItems}
+                <li className={`todo ${darkMode ? "todo-dark" : ""}`}>
+                  <p className={`items-left ${darkMode ? "items-dark" : ""}`}
+                  >{activeTodos.length} items left</p>
+                  <p className={`items-clear ${darkMode ? "items-dark" : ""}`}
+                  onClick={clearCompleted}>Clear Completed</p>
+                </li>
+                {provided.placeholder}
+              </ul>
+             )}
+             </Droppable>
+          </DragDropContext>
           
           <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`}>
             <p 
