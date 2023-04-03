@@ -21,6 +21,11 @@ function App() {
       {id: nanoid(),message: message, completed: false},...prev])
   }
 
+  function handleDelete(id){
+    const updatedArr = todo.filter(item => item.id !== id)
+    setTodo(updatedArr)
+  }
+
   console.log(todo)
 
   const todoItems = todo.map((item, idx) => {
@@ -28,7 +33,11 @@ function App() {
       <div className="todo" key={idx}>
         <div className="circle-todo"></div>
         <p className="todo-description">{item.message}</p>
-        <img src={CrossIcon} alt="cross-icon" className="cross-icon" />
+        <img 
+          src={CrossIcon} 
+          alt="cross-icon" 
+          className="cross-icon" 
+          onClick={() => handleDelete(item.id)} />
       </div>
     )
   })
