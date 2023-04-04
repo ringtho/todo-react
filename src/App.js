@@ -68,7 +68,7 @@ function App() {
         key={item.id}
         idx={idx}
         item={item}
-        to={todo}
+        todo={todo}
         setTodo={setTodo}
         darkMode={darkMode}
       />
