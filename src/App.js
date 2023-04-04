@@ -4,17 +4,16 @@ import Banner from "./images/bg-mobile-light.jpg"
 import BannerDark from "./images/bg-mobile-dark.jpg"
 import Moon from "./images/icon-moon.svg"
 import Sun from "./images/icon-sun.svg"
-import CheckIcon from "./images/icon-check.svg"
-import CrossIcon from "./images/icon-cross.svg"
 import { nanoid } from 'nanoid'
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
+import { DragDropContext, Droppable } from "react-beautiful-dnd"
+import Todo from "./components/Todo"
 
 function App() {
   const [message, setMessage] = useState("")
   const [todo, setTodo] = useState([])
   const [filterAction, setFilterAction] = useState("all")
   const [darkMode, setDarkMode] = useState(false)
-  const [showCross, setShowCross] = useState(false)
+
   const activeTodos = todo.filter(item => !item.completed)
   const completedTodos = todo.filter(item => item.completed )
 
@@ -31,20 +30,6 @@ function App() {
     setTodo(prev => [
       {id: nanoid(),message: message, completed: false},...prev])
     setMessage("")
-  }
-
-  function handleDelete(id){
-    const updatedArr = todo.filter(item => item.id !== id)
-    setTodo(updatedArr)
-  }
-
-  function toggleComplete(id){
-    const updatedArr = todo.map(item => 
-      item.id === id 
-      ? {...item, completed: !item.completed} 
-      : item
-    )
-    setTodo(updatedArr) 
   }
 
   function clearCompleted(){
@@ -79,47 +64,14 @@ function App() {
   
   const todoItems = filter(filterAction).map((item, idx) => {
     return (
-      <Draggable 
+      <Todo
         key={item.id}
-        draggableId={item.id.toString()}
-        index={idx}
-      >
-        {(provided, snapshot) => (
-          <li 
-          {...provided.draggableProps}
-          ref={provided.innerRef}
-          {...provided.dragHandleProps}
-          key={item.id}
-          className={`todo ${darkMode ? "todo-dark bd-dark" : ""} 
-          ${snapshot.isDragging ? "selected" : "not-selected"}`} 
-          onMouseEnter={() => setShowCross(true)}
-          onMouseLeave={() => setShowCross(false)}
-          >
-          <div 
-            className={`circle-todo ${item.completed ? "fill" : ""} 
-            ${darkMode ? "bd-full-dark" : ""}`}
-            onClick={() => toggleComplete(item.id)}>
-              {
-            item.completed && 
-            <img src={CheckIcon} alt="check-icon" className="check-icon" />
-            }
-          </div>
-          
-          <p className={
-            `todo-description ${item.completed ? "line-through" : ""}
-            ${darkMode ? "line-through-dark" : ""}`}>
-            {item.message}
-          </p>
-          { showCross &&
-          <img 
-            src={CrossIcon} 
-            alt="cross-icon" 
-            className="cross-icon" 
-            onClick={() => handleDelete(item.id)} />}
-        </li>
-        )}
-
-      </Draggable>
+        idx={idx}
+        item={item}
+        to={todo}
+        setTodo={setTodo}
+        darkMode={darkMode}
+      />
     )
   })
 
