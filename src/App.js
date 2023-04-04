@@ -10,9 +10,10 @@ import Todo from "./components/Todo"
 
 function App() {
   const [message, setMessage] = useState("")
-  const [todo, setTodo] = useState([])
+  const [todo, setTodo] = useState(JSON.parse(localStorage.getItem("todo"))||[])
   const [filterAction, setFilterAction] = useState("all")
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(
+    JSON.parse(localStorage.getItem("darkMode")|| false))
 
   const activeTodos = todo.filter(item => !item.completed)
   const completedTodos = todo.filter(item => item.completed )
@@ -30,6 +31,7 @@ function App() {
     setTodo(prev => [
       {id: nanoid(),message: message, completed: false},...prev])
     setMessage("")
+    
   }
 
   function clearCompleted(){
@@ -38,11 +40,13 @@ function App() {
   }
 
   useEffect(()=>{
+    localStorage.setItem("todo", JSON.stringify(todo))
+    localStorage.setItem("darkMode", JSON.stringify(darkMode))
     darkMode ?
     document.body.className = "dark-background" :
     document.body.className = "light-background"
 
-  },[darkMode])
+  },[darkMode, todo])
 
   function filter(action){
     if ( action === "active"){
