@@ -52,7 +52,7 @@ header {
 
 .headings {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -132,7 +132,7 @@ header {
 
 .container {
   padding: 0 24px;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   margin-top: -106px;
   position: relative;
@@ -157,13 +157,6 @@ header {
   padding: 14px 20px;
 } 
 
-.todo {
-  height: 48px;
-  /* height: auto; */
-  min-height: 48px;
-  overflow: hidden;
-}
-
 .todo-filter,
 .todo-info {
   height: 48px;
@@ -180,6 +173,8 @@ header {
 .todo{
   border-bottom: 1px solid #E3E4F1;
   justify-content: space-between;
+  min-height: 48px;
+  padding-block: 0;
 }
 
 .bd-dark {
@@ -203,8 +198,7 @@ div .todo-dark .todo-description {
   font-size: 16px;
   margin-right: auto;
   color: #494C6B;
-  line-height: 1;
-  padding-block: 1rem;
+  line-height: 1.2;
 }
 
 .cross-icon:hover {
@@ -312,18 +306,9 @@ ul li:nth-child(1){
   color: #E3E4F1;
 }
 
-@media (min-width: 500px){
+@media (min-width: 600px){
   #filter-menu-big {
     display: flex;
-  }
-
-  .todo {
-    min-height: 48px;
-    overflow: hidden;
-  }
-
-  .todo-filter {
-    background-color: none;
   }
 
   #filter-menu-small {

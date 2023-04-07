@@ -102,7 +102,8 @@ function App() {
             placeholder="Create a new todo" 
             className={`input-field ${darkMode ? "input-field-dark" : ""}`}
             value={message}
-            onChange={handleChange} />
+            onChange={handleChange}
+            required />
           <div className={`circle ${darkMode ? "bd-full-dark" : ""}`}></div>
         </form>
         <div className="todo-items">
