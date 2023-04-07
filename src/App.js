@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-// import Banner from "./images/banner2.jpg"
+// import Banner from "./images/banner.jpg"
 import Banner from "./images/bg-mobile-light.jpg"
 import BannerDark from "./images/bg-mobile-dark.jpg"
 import Moon from "./images/icon-moon.svg"
@@ -120,9 +120,6 @@ function App() {
           <div className={`todo-info items-left ${darkMode ? "todo-dark" : ""}`}>
             <p className={`items-left ${darkMode ? "items-dark" : ""}`} 
             >{activeTodos.length} items left</p>
-
-            {/* <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`} 
-            id="filter-menu-big"> */}
               <div className={`filter-big-screen 
               ${darkMode ? "filter-big-screen-dark" : ""}`} id="filter-menu-big">
               <p id={`${filterAction === "all" ? "selected" : "" }`}

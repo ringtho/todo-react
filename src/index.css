@@ -123,6 +123,7 @@ header {
   position: relative;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 1;
 }
 
 .circle-todo:hover {
@@ -154,8 +155,19 @@ header {
   align-items: center;
   background-color: #FFFFFF;
   padding: 14px 20px;
-  height: 48px;
 } 
+
+.todo {
+  height: 48px;
+  /* height: auto; */
+  min-height: 48px;
+  overflow: hidden;
+}
+
+.todo-filter,
+.todo-info {
+  height: 48px;
+}
 
 .todo-info {
   justify-content: space-between;
@@ -167,6 +179,7 @@ header {
 
 .todo{
   border-bottom: 1px solid #E3E4F1;
+  justify-content: space-between;
 }
 
 .bd-dark {
@@ -191,6 +204,7 @@ div .todo-dark .todo-description {
   margin-right: auto;
   color: #494C6B;
   line-height: 1;
+  padding-block: 1rem;
 }
 
 .cross-icon:hover {
@@ -302,8 +316,13 @@ ul li:nth-child(1){
   #filter-menu-big {
     display: flex;
   }
+
+  .todo {
+    min-height: 48px;
+    overflow: hidden;
+  }
+
   .todo-filter {
-    border: 1px solid red;
     background-color: none;
   }
 
