@@ -25,6 +25,20 @@ body {
   background-color: #171823;
 }
 
+.light-header {
+  background: url('./images/bg-mobile-light.jpg');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dark-header {
+  background: url('./images/bg-mobile-dark.jpg');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 h1, h2, h3, h4 {
   margin: 0;
 }
@@ -38,7 +52,6 @@ header {
 
 header {
   position: relative;
-  /* z-index: -1; */
 }
 
 .headings-container {
@@ -52,11 +65,10 @@ header {
 
 .headings {
   width: 100%;
-  max-width: 600px;
+  max-width: 550px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
   margin: 0 auto;
 }
 
@@ -306,7 +318,7 @@ ul li:nth-child(1){
   color: #E3E4F1;
 }
 
-@media (min-width: 600px){
+@media (min-width: 500px){
   #filter-menu-big {
     display: flex;
   }
@@ -323,4 +335,59 @@ ul li:nth-child(1){
     display: flex;
     gap: 1rem;
   }
+
+  .input-field,
+  .todo-filter,
+  .todo-info {
+    height: 60px;
+  }
+
+  .input-field {
+    font-size: 18px;
+  }
+
+  .todo {
+    min-height: 60px;
+  }
+
+  .add-todo {
+    margin-block: 2rem;
+  }
+
+  .todo-description {
+    font-size: 18px;
+  }
+
+  .items-left,
+  .items-clear {
+    font-size: 14px;
+  }
+
+  .filter {
+    font-size: 16px;
+  }
+
+  .circle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  .container {
+    margin-top: -160px;
+  }
+
+  header,
+  header > img {
+    height: 250px;
+  }
+
+  .light-header {
+    background: url("./images/bg-desktop-light.jpg");
+  }
+
+  .dark-header {
+    background: url("./images/bg-desktop-dark.jpg");
+  }
+
 }
