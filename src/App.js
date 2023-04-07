@@ -143,21 +143,18 @@ function App() {
           </div>
           <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`}
           id="filter-menu-small">
-            <p 
-              className={`${darkMode ? "items-dark" : "" } filter 
-              ${filterAction === "all" ? "selected" : "" }
-              `} 
-              onClick={()=>setFilterAction("all")}>All</p>
-            <p 
-              className={`${darkMode ? "items-dark" : "" } filter 
-              ${filterAction === "active" ? "selected" : "" }
-              `} 
-              onClick={()=>setFilterAction("active")}>Active</p>
-            <p 
-              className={`${darkMode ? "items-dark" : "" } filter 
-              ${filterAction === "completed" ? "selected" : "" }
-              `} 
-              onClick={()=>setFilterAction("completed")} >Completed</p>
+            <p id={`${filterAction === "all" ? "selected" : "" }`}
+                className={`${darkMode ? "items-dark" : "" } filter 
+                `} 
+                onClick={()=>setFilterAction("all")}>All</p>
+              <p id={`${filterAction === "active" ? "selected" : "" }`}
+                className={`${darkMode ? "items-dark" : "" } filter 
+                `} 
+                onClick={()=>setFilterAction("active")}>Active</p>
+              <p id={`${filterAction === "completed" ? "selected" : "" }`}
+                className={`${darkMode ? "items-dark" : "" } filter 
+                `} 
+                onClick={()=>setFilterAction("completed")} >Completed</p>
           </div>
           <p className={`reorder-text ${darkMode ? "filter-dark" : ""}`}>
             Drag and drop to reorder list</p>
