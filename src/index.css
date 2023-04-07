@@ -79,6 +79,7 @@ header {
 
 .add-todo {
   position: relative;
+  padding-block: 1rem;
 }
 
 .input-field {
@@ -141,7 +142,7 @@ header {
   color: #D1D2DA;
 }
 
-.todo .line-through-dark {
+#todo-list .line-through-dark {
   text-decoration: line-through;
   color: #4D5067;
 }

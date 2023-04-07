@@ -28,6 +28,7 @@ function Todo({item, todo, setTodo, darkMode, idx}){
         >
             {(provided, snapshot) => (
             <li 
+            id="todo-list"
             {...provided.draggableProps}
             ref={provided.innerRef}
             {...provided.dragHandleProps}
