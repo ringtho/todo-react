@@ -48,8 +48,8 @@ function Todo({item, todo, setTodo, darkMode, idx}){
             </div>
             
             <p className={
-                `todo-description ${item.completed ? "line-through" : ""}
-                ${darkMode ? "line-through-dark" : ""}`}>
+                `todo-description ${item.completed ? darkMode ? "line-through-dark" : "line-through"  : ""}
+                `}>
                 {item.message}
             </p>
             { showCross &&

@@ -43,8 +43,8 @@ function App() {
     localStorage.setItem("todo", JSON.stringify(todo))
     localStorage.setItem("darkMode", JSON.stringify(darkMode))
     darkMode ?
-    document.body.className = "dark-background" :
-    document.body.className = "light-background"
+    document.body.className = "dark" :
+    document.body.className = "light"
 
   },[darkMode, todo])
 
@@ -83,16 +83,19 @@ function App() {
     <div className="app">
       <header>
         <img src={darkMode ? BannerDark : Banner} alt="header-img" />
-        <div className="headings">
-          <h1>TODO</h1>
-          <img 
-            className="moon-icon" 
-            src={darkMode ? Sun : Moon} 
-            alt="light-mode-moon"
-            onClick={toggleDarkMode} />
+        <div className="headings-container">
+          <div className="headings">
+            <h1>TODO</h1>
+            <img 
+              className="moon-icon" 
+              src={darkMode ? Sun : Moon} 
+              alt="light-mode-moon"
+              onClick={toggleDarkMode} />
+          </div>
         </div>
       </header>
       <main>
+        <div className="container">
         <form className="add-todo" onSubmit={handleSubmit}>
           <input 
             type="text" 
@@ -106,21 +109,40 @@ function App() {
           <DragDropContext onDragEnd={handleEnd}>
           <Droppable droppableId="to-do">
                   {(provided) => (
-                <ul {...provided.droppableProps} ref={provided.innerRef} className={`${darkMode ? "ul-dark" : ""}`}>
+                <ul {...provided.droppableProps} ref={provided.innerRef} 
+                className={`${darkMode ? "ul-dark" : ""}`}>
                 {todoItems}
-                <li className={`todo ${darkMode ? "todo-dark" : ""}`}>
-                  <p className={`items-left ${darkMode ? "items-dark" : ""}`}
-                  >{activeTodos.length} items left</p>
-                  <p className={`items-clear ${darkMode ? "items-dark" : ""}`}
-                  onClick={clearCompleted}>Clear Completed</p>
-                </li>
                 {provided.placeholder}
               </ul>
              )}
              </Droppable>
           </DragDropContext>
-          
-          <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`}>
+          <div className={`todo-info items-left ${darkMode ? "todo-dark" : ""}`}>
+            <p className={`items-left ${darkMode ? "items-dark" : ""}`} 
+            >{activeTodos.length} items left</p>
+
+            {/* <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`} 
+            id="filter-menu-big"> */}
+              <div className={`filter-big-screen 
+              ${darkMode ? "filter-big-screen-dark" : ""}`} id="filter-menu-big">
+              <p id={`${filterAction === "all" ? "selected" : "" }`}
+                className={`${darkMode ? "items-dark" : "" } filter 
+                `} 
+                onClick={()=>setFilterAction("all")}>All</p>
+              <p id={`${filterAction === "active" ? "selected" : "" }`}
+                className={`${darkMode ? "items-dark" : "" } filter 
+                `} 
+                onClick={()=>setFilterAction("active")}>Active</p>
+              <p id={`${filterAction === "completed" ? "selected" : "" }`}
+                className={`${darkMode ? "items-dark" : "" } filter 
+                `} 
+                onClick={()=>setFilterAction("completed")} >Completed</p>
+            </div>
+            <p className={`items-clear ${darkMode ? "items-dark items-dark-hover" : ""}`}
+            onClick={clearCompleted}>Clear Completed</p>
+          </div>
+          <div className={`todo-filter ${darkMode ? "todo-dark filter-dark" : ""}`}
+          id="filter-menu-small">
             <p 
               className={`${darkMode ? "items-dark" : "" } filter 
               ${filterAction === "all" ? "selected" : "" }
@@ -137,7 +159,9 @@ function App() {
               `} 
               onClick={()=>setFilterAction("completed")} >Completed</p>
           </div>
-          <p className={`reorder-text ${darkMode ? "filter-dark" : ""}`}>Drag and drop to reorder list</p>
+          <p className={`reorder-text ${darkMode ? "filter-dark" : ""}`}>
+            Drag and drop to reorder list</p>
+        </div>
         </div>
       </main>
     </div>
