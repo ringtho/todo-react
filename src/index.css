@@ -80,8 +80,8 @@ header {
 }
 
 .moon-icon {
-  height: 20px;
-  width: 20px;
+  height: 22px;
+  width: 22px;
 }
 
 .moon-icon:hover {
@@ -388,6 +388,15 @@ ul li:nth-child(1){
 
   .dark-header {
     background: url("./images/bg-desktop-dark.jpg");
+  }
+
+  .moon-icon {
+    height: 30px;
+    width: 30px;
+  }
+
+  .headings > h1 {
+    font-size: 36px;
   }
 
 }

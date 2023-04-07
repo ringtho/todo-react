@@ -12,7 +12,6 @@ function App() {
     JSON.parse(localStorage.getItem("darkMode")|| false))
 
   const activeTodos = todo.filter(item => !item.completed)
- 
 
   function toggleDarkMode(){
     setDarkMode(!darkMode)
