@@ -38,11 +38,11 @@ header {
 
 header {
   position: relative;
+  /* z-index: -1; */
 }
 
 .headings-container {
   width: 100%;
-  border: 1px solid red;
   position: absolute;
   left: 0;
   top: 0;
@@ -53,7 +53,6 @@ header {
 .headings {
   width: 100%;
   max-width: 500px;
-  border: 1px solid red;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,15 +78,15 @@ header {
 
 .add-todo {
   position: relative;
-  padding-block: 1rem;
+  margin-block: 1rem;
 }
 
 .input-field {
+  position: relative;
   width: 100%;
   height: 48px;
   border-radius: 5px;
   border: none;
-  position: relative;
   padding-left: 52px;
   padding-right: 16px;
   font-family: 'Josefin Sans', sans-serif;
@@ -107,7 +106,6 @@ header {
 .circle {
   position: absolute;
   top: 14px;
-  left: 0;
   left: 20px;
 }
 
@@ -135,6 +133,8 @@ header {
   padding: 0 24px;
   max-width: 500px;
   margin: 0 auto;
+  margin-top: -106px;
+  position: relative;
 }
 
 .todo .line-through {
@@ -313,10 +313,6 @@ ul li:nth-child(1){
 
   .items-left {
     margin: 0;
-  }
-
-  .headings {
-    width: 500px;
   }
 
   .filter-big-screen {
