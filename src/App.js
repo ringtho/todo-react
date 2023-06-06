@@ -3,6 +3,7 @@ import Moon from './images/icon-moon.svg'
 import Sun from './images/icon-sun.svg'
 import { nanoid } from 'nanoid'
 import TodoItems from './components/TodoItems'
+import FilterControls from './components/FilterControls'
 
 const App = () => {
   const [message, setMessage] = useState('')
@@ -26,11 +27,6 @@ const App = () => {
     setTodo(prev => [
       { id: nanoid(), message, completed: false }, ...prev])
     setMessage('')
-  }
-
-  const clearCompleted = () => {
-    const newArr = todo.filter(item => !item.completed)
-    setTodo(newArr)
   }
 
   useEffect(() => {
@@ -75,42 +71,14 @@ const App = () => {
               activeTodos={activeTodos}
               filterAction={filterAction}
             />
-            <div className={`todo-info items-left ${darkMode ? 'todo-dark' : ''}`}>
-              <p className={`items-left ${darkMode ? 'items-dark' : ''}`}
-              >{activeTodos.length} items left</p>
-                <div className={`filter-big-screen 
-                ${darkMode ? 'filter-big-screen-dark' : ''}`} id="filter-menu-big">
-                <p id={`${filterAction === 'all' ? 'selected' : ''}`}
-                  className={`${darkMode ? 'items-dark' : ''} filter 
-                  `}
-                  onClick={() => setFilterAction('all')}>All</p>
-                <p id={`${filterAction === 'active' ? 'selected' : ''}`}
-                  className={`${darkMode ? 'items-dark' : ''} filter 
-                  `}
-                  onClick={() => setFilterAction('active')}>Active</p>
-                <p id={`${filterAction === 'completed' ? 'selected' : ''}`}
-                  className={`${darkMode ? 'items-dark' : ''} filter 
-                  `}
-                  onClick={() => setFilterAction('completed')}>Completed</p>
-              </div>
-              <p className={`items-clear ${darkMode ? 'items-dark items-dark-hover' : ''}`}
-              onClick={clearCompleted}>Clear Completed</p>
-            </div>
-            <div className={`todo-filter ${darkMode ? 'todo-dark filter-dark' : ''}`}
-            id="filter-menu-small">
-              <p id={`${filterAction === 'all' ? 'selected' : ''}`}
-                  className={`${darkMode ? 'items-dark' : ''} filter 
-                  `}
-                  onClick={() => setFilterAction('all')}>All</p>
-                <p id={`${filterAction === 'active' ? 'selected' : ''}`}
-                  className={`${darkMode ? 'items-dark' : ''} filter 
-                  `}
-                  onClick={() => setFilterAction('active')}>Active</p>
-                <p id={`${filterAction === 'completed' ? 'selected' : ''}`}
-                  className={`${darkMode ? 'items-dark' : ''} filter 
-                  `}
-                  onClick={() => setFilterAction('completed')}>Completed</p>
-            </div>
+            <FilterControls
+              todo={todo}
+              setTodo={setTodo}
+              darkMode={darkMode}
+              activeTodos={activeTodos}
+              filterAction={filterAction}
+              setFilterAction={setFilterAction}
+            />
             <p className={`reorder-text ${darkMode ? 'filter-dark' : ''}`}>
               Drag and drop to reorder list</p>
           </div>
