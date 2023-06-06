@@ -26,16 +26,12 @@ body {
 }
 
 .light-header {
-  background: url('./images/bg-mobile-light.jpg');
-  object-fit: cover;
-  background-repeat: no-repeat;
+  background: url('./images/bg-mobile-light.jpg') no-repeat;
   background-size: cover;
 }
 
 .dark-header {
-  background: url('./images/bg-mobile-dark.jpg');
-  object-fit: cover;
-  background-repeat: no-repeat;
+  background: url('./images/bg-mobile-dark.jpg') no-repeat;
   background-size: cover;
 }
 
@@ -383,11 +379,13 @@ ul li:nth-child(1){
   }
 
   .light-header {
-    background: url("./images/bg-desktop-light.jpg");
+    background: url("./images/bg-desktop-light.jpg") no-repeat;
+    background-size: cover;
   }
 
   .dark-header {
-    background: url("./images/bg-desktop-dark.jpg");
+    background: url("./images/bg-desktop-dark.jpg") no-repeat;
+    background-size: cover;
   }
 
   .moon-icon {
